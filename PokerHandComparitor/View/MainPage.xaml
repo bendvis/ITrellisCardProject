@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <RelativePanel x:Name="MainPanel">
+    <RelativePanel x:Name="MainPanel" Padding="30">
         <StackPanel x:Name ="CardMenuPanel" Orientation="Vertical" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
             <TextBlock Text="Poker Hand Comparitor" FontSize="36" TextAlignment="Center"/>
             <TextBlock Text="Select values from these drop-down menus and click a card to change it." FontSize="24" Margin="0, 30, 0, 10"></TextBlock>
@@ -22,7 +22,7 @@
         </StackPanel>
         
         <StackPanel x:Name ="PlayerPanel" Orientation="Horizontal" RelativePanel.Below="CardMenuPanel" Margin="50" HorizontalAlignment="Center">
-            <RelativePanel x:Name="LeftPlayerPanel" BorderBrush="Blue" BorderThickness="3" MinWidth="500" Margin="15" Padding="15">
+            <RelativePanel x:Name="LeftPlayerPanel" BorderBrush="Gray" BorderThickness="3" MinWidth="500" Margin="15" Padding="15">
                 <TextBox x:Name="LeftPlayerTextBox" Text="{x:Bind ViewModel.LeftPlayerName, Mode=TwoWay}" FontSize="24" 
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
                        RelativePanel.AlignTopWithPanel="True" />
@@ -62,7 +62,7 @@
             </RelativePanel>
 
 
-            <RelativePanel x:Name="RightPlayerPanel" BorderBrush="Green" BorderThickness="3" MinWidth="500" Margin="15" Padding="15" >
+            <RelativePanel x:Name="RightPlayerPanel" BorderBrush="Gray" BorderThickness="3" MinWidth="500" Margin="15" Padding="15" >
                 <TextBox x:Name="RightPlayerTextBox" Text="{x:Bind ViewModel.RightPlayerName, Mode=TwoWay}" FontSize="24"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
                        RelativePanel.AlignTopWithPanel="True" />
@@ -95,7 +95,7 @@
 
             </RelativePanel>
         </StackPanel>
-        <RelativePanel x:Name="ResultPanel" Height="200" BorderBrush="Red" BorderThickness="3"
+        <RelativePanel x:Name="ResultPanel" Height="200" BorderBrush="Gray" BorderThickness="3"
                                             RelativePanel.AlignBottomWithPanel="True" 
                                             RelativePanel.AlignRightWithPanel="True" 
                                             RelativePanel.AlignLeftWithPanel="True">
