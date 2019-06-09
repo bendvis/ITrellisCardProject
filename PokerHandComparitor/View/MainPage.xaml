@@ -1,0 +1,107 @@
+﻿<Page
+    x:Class="PokerHandComparitor.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokerHandComparitor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:PokerHandComparitor.ViewModel"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <RelativePanel x:Name="MainPanel">
+        <StackPanel x:Name ="CardMenuPanel" Orientation="Vertical" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
+            <TextBlock Text="Poker Hand Comparitor" FontSize="36" TextAlignment="Center"/>
+            <TextBlock Text="Select values from these drop-down menus and click a card to change it." FontSize="24" Margin="0, 30, 0, 10"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <TextBlock Text="Rank:" Margin="5" />
+                <ComboBox x:Name="ChangeRankMenu" ItemsSource="{x:Bind ViewModel.ChangeRankList}" SelectedIndex="0" />
+                <TextBlock Text="Suit:" Margin="30,5,5,5" />
+                <ComboBox x:Name="ChangeSuitMenu" ItemsSource="{x:Bind ViewModel.ChangeSuitList}" SelectedIndex="0"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <StackPanel x:Name ="PlayerPanel" Orientation="Horizontal" RelativePanel.Below="CardMenuPanel" Margin="50" HorizontalAlignment="Center">
+            <RelativePanel x:Name="LeftPlayerPanel" BorderBrush="Blue" BorderThickness="3" MinWidth="500" Margin="15" Padding="15">
+                <TextBox x:Name="LeftPlayerTextBox" Text="{x:Bind ViewModel.LeftPlayerName, Mode=TwoWay}" FontSize="24" 
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+                       RelativePanel.AlignTopWithPanel="True" />
+
+                <Button x:Name="LeftPlayerRandomize" 
+                        RelativePanel.Below="LeftPlayerTextBox"
+                        RelativePanel.AlignHorizontalCenterWith="LeftPlayerTextBox" Click="LeftPlayerRandomize_Click">Randomize Hand</Button>
+
+                <ListView x:Name="LeftPlayerCards" CanDrag="False" CanReorderItems="False" SelectionMode="Single" IsItemClickEnabled="True"
+                          ItemClick="LeftPlayerCards_ItemClick"
+                          ItemsSource="{x:Bind ViewModel.LeftPlayerCards, Mode=OneWay}"
+                    RelativePanel.Below="LeftPlayerRandomize" RelativePanel.AlignLeftWithPanel="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Change Rank"></MenuFlyoutItem>
+                                    </MenuFlyout>
+                                </StackPanel.ContextFlyout>
+                                <TextBlock Text="{Binding Rank}" Margin="3,0"/>
+                                <TextBlock Text="{Binding Suit}" Margin="3,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <StackPanel x:Name="LeftCategory" Orientation="Horizontal" RelativePanel.Below="LeftPlayerCards" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                    <TextBlock Text="Hand Category:" Margin="5, 0"/>
+                    <TextBlock Text="{x:Bind ViewModel.LeftPlayerCategoryString, Mode=OneWay}" />
+                </StackPanel>
+                <StackPanel x:Name="LeftHighCard" Orientation="Horizontal" RelativePanel.Below="LeftCategory" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                    <TextBlock Text="High Card:" Margin="5, 0" />
+                    <TextBlock Text="{x:Bind ViewModel.LeftPlayerHighCardString, Mode=OneWay}" />
+                </StackPanel>
+
+            </RelativePanel>
+
+
+            <RelativePanel x:Name="RightPlayerPanel" BorderBrush="Green" BorderThickness="3" MinWidth="500" Margin="15" Padding="15" >
+                <TextBox x:Name="RightPlayerTextBox" Text="{x:Bind ViewModel.RightPlayerName, Mode=TwoWay}" FontSize="24"
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+                       RelativePanel.AlignTopWithPanel="True" />
+                <Button x:Name="RightPlayerRandomize" 
+                        RelativePanel.Below="RightPlayerTextBox"
+                        RelativePanel.AlignHorizontalCenterWith="RightPlayerTextBox" Click="RightPlayerRandomize_Click">Randomize Hand</Button>
+
+                <ListView x:Name="RightPlayerCards" CanDrag="False" CanReorderItems="False" SelectionMode="Single" IsItemClickEnabled="True"
+                          ItemClick="RightPlayerCards_ItemClick"
+                          ItemsSource="{x:Bind ViewModel.RightPlayerCards, Mode=OneWay}"
+                    RelativePanel.Below="RightPlayerRandomize" RelativePanel.AlignLeftWithPanel="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Rank}" Margin="3,0"/>
+                                <TextBlock Text="{Binding Suit}" Margin="3,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <StackPanel x:Name="RightCategory" Orientation="Horizontal" RelativePanel.Below="RightPlayerCards" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                    <TextBlock Text="Hand Category:" Margin="5, 0"/>
+                    <TextBlock Text="{x:Bind ViewModel.RightPlayerCategoryString, Mode=OneWay}" />
+                </StackPanel>
+                <StackPanel x:Name="RightHighCard" Orientation="Horizontal" RelativePanel.Below="RightCategory" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                    <TextBlock Text="High Card:" Margin="5, 0" />
+                    <TextBlock Text="{x:Bind ViewModel.RightPlayerHighCardString, Mode=OneWay}" />
+                </StackPanel>
+
+            </RelativePanel>
+        </StackPanel>
+        <RelativePanel x:Name="ResultPanel" Height="200" BorderBrush="Red" BorderThickness="3"
+                                            RelativePanel.AlignBottomWithPanel="True" 
+                                            RelativePanel.AlignRightWithPanel="True" 
+                                            RelativePanel.AlignLeftWithPanel="True">
+            <TextBlock x:Name="ResultText" Text="{x:Bind ViewModel.WinnerText, Mode=OneWay}" FontSize="24"
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+                       RelativePanel.AlignVerticalCenterWithPanel="True" />
+        </RelativePanel>
+    </RelativePanel>
+</Page>
