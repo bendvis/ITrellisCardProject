@@ -279,6 +279,11 @@ namespace PokerHandComparitor.Model
                 return Cards[4];
             }
 
+            if (IsXOfAKind(3, 2) && IsXOfAKind(0, 2))
+            {
+                return Cards[4];
+            }
+
             if (IsXOfAKind(2, 2) && IsXOfAKind(0, 2))
             {
                 return Cards[3];
@@ -325,9 +330,10 @@ namespace PokerHandComparitor.Model
             var sortable = new List<Card>(Cards);
             sortable.Sort();
 
+            Cards.Clear();
             for (int i = 0; i < sortable.Count; ++i)
             {
-                Cards.Move(Cards.IndexOf(sortable[i]), i);
+                Cards.Add(sortable[i]);
             }
         }
     }
